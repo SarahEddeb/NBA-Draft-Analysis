@@ -9,9 +9,9 @@ SET SEARCH_PATH TO NBAPlayers;
 -- college is the college name the player attended before entering the draft
 CREATE TABLE PlayerInfo (
     PID INT,
-    playerName TEXT NOT NULL,
     team TEXT NOT NULL,
-    college TEXT,
+    playerName TEXT NOT NULL,
+    college TEXT DEFAULT 'N/A',
     PRIMARY KEY (PID)
 );
 
