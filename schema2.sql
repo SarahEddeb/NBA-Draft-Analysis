@@ -11,7 +11,7 @@ CREATE TABLE PlayerInfo (
     PID INT,
     playerName TEXT NOT NULL,
     team TEXT NOT NULL,
-    college TEXT DEFAULT 'N/A',
+    college TEXT,
     PRIMARY KEY (PID)
 );
 
@@ -23,7 +23,7 @@ CREATE TABLE DraftInfo (
     PID INT,
     rank INT,
     draftRound INT,
-    PRIMARY KEY (rank),
+    PRIMARY KEY (PID),
     FOREIGN KEY (PID) REFERENCES PlayerInfo(PID)
 );
 
