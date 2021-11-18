@@ -86,5 +86,7 @@ CREATE TABLE Shooting(
     PID INT,
     fieldGoalPercentage INT, 
     3pointFieldGoalPercentage INT, 
-    freeThrowPercentage INT
+    freeThrowPercentage INT,
+    PRIMARY KEY (PID),
+    FOREIGN KEY (PID) REFERENCES PlayerInfo(PID)
 )
