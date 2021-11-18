@@ -59,7 +59,7 @@ CREATE TABLE BodyMeasurements(
     height INT,
     PRIMARY KEY (PID),
     FOREIGN KEY (PID) REFERENCES PlayerInfo(PID)
-)
+);
 
 -- A players strength and agility measurements
 -- PID is the player's ID
@@ -70,12 +70,12 @@ CREATE TABLE BodyMeasurements(
 CREATE TABLE StrengthAgility (
     PID INT, 
     shuttleRun INT, 
-    3quarterSprint INT, 
+    threeQuarterSprint INT, 
     standingVerticalLeap INT, 
-    maxVerticalLeap INT
+    maxVerticalLeap INT,
     PRIMARY KEY (PID),
     FOREIGN KEY (PID) REFERENCES PlayerInfo(PID)
-)
+);
 
 -- A players shooting statistics
 -- PID is the player's ID
@@ -85,8 +85,8 @@ CREATE TABLE StrengthAgility (
 CREATE TABLE Shooting(
     PID INT,
     fieldGoalPercentage INT, 
-    3pointFieldGoalPercentage INT, 
+    threePointFieldGoalPercentage INT, 
     freeThrowPercentage INT,
     PRIMARY KEY (PID),
     FOREIGN KEY (PID) REFERENCES PlayerInfo(PID)
-)
+);
