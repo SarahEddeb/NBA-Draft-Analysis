@@ -56,7 +56,7 @@ CREATE TABLE BodyMeasurements(
     handLength INT, 
     wingspan INT, 
     bodyWeight INT, 
-    height INT,
+    height TEXT NOT NULL,
     PRIMARY KEY (PID),
     FOREIGN KEY (PID) REFERENCES PlayerInfo(PID)
 );
