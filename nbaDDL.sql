@@ -2,15 +2,15 @@ DROP SCHEMA IF EXISTS NBAPlayers CASCADE;
 CREATE SCHEMA NBAPlayers;
 SET SEARCH_PATH TO NBAPlayers;
 
--- A player 
+-- A player that was drafted to the NBA
 -- PID is the player's ID
 -- playerName is the first and last name of the player
 -- team is the name of the team the player was drafted to
 -- college is the college name the player attended before entering the draft
 CREATE TABLE PlayerInfo (
     PID INT,
-    playerName TEXT NOT NULL,
     team TEXT NOT NULL,
+    playerName TEXT NOT NULL,
     college TEXT,
     PRIMARY KEY (PID)
 );
@@ -18,11 +18,11 @@ CREATE TABLE PlayerInfo (
 -- A player in the draft
 -- PID is the player's ID
 -- rank is the players rank in the draft
--- draftRound is the round the player was drafted in 
+-- playerName is the player's first and last name
 CREATE TABLE DraftInfo (
     PID INT,
     rank INT  NOT NULL,
-    draftRound INT NOT NULL,
+    playerName TEXT NOT NULL,
     PRIMARY KEY (PID),
     FOREIGN KEY (PID) REFERENCES PlayerInfo(PID)
 );

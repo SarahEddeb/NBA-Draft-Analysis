@@ -1,0 +1,265 @@
+cdf> psql csc343h-eddebsar
+
+psql (13.4)
+Type "help" for help.
+
+--- a) Load schema and data ---
+csc343h-eddebsar=> \i nbaDDL.sql psql:nbaDDL.sql:1: NOTICE:  drop cascades to 6 other objects
+DETAIL:  drop cascades to table nbaplayers.playerinfo
+drop cascades to table nbaplayers.draftinfo
+drop cascades to table nbaplayers.career
+drop cascades to table nbaplayers.bodymeasurements
+drop cascades to table nbaplayers.strengthagility
+drop cascades to table nbaplayers.shooting
+DROP SCHEMA
+CREATE SCHEMA
+SET
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+csc343h-eddebsar=> \i nbaData.sql
+COPY 60
+COPY 60
+COPY 60
+COPY 24
+COPY 60
+COPY 60
+--- b) Run \d on each table ---
+csc343h-eddebsar=> \d PlayerInfo
+             Table "nbaplayers.playerinfo"
+   Column   |  Type   | Collation | Nullable | Default 
+------------+---------+-----------+----------+---------
+ pid        | integer |           | not null | 
+ playername | text    |           | not null | 
+ team       | text    |           | not null | 
+ college    | text    |           |          | 
+Indexes:
+    "playerinfo_pkey" PRIMARY KEY, btree (pid)
+Referenced by:
+    TABLE "averagegamestats" CONSTRAINT "averagegamestats_pid_fkey" FOREIGN KEY (pid) REFERENCES playerinfo(pid)
+    TABLE "bodymeasurements" CONSTRAINT "bodymeasurements_pid_fkey" FOREIGN KEY (pid) REFERENCES playerinfo(pid)
+    TABLE "career" CONSTRAINT "career_pid_fkey" FOREIGN KEY (pid) REFERENCES playerinfo(pid)
+    TABLE "draftinfo" CONSTRAINT "draftinfo_pid_fkey" FOREIGN KEY (pid) REFERENCES playerinfo(pid)
+    TABLE "shooting" CONSTRAINT "shooting_pid_fkey" FOREIGN KEY (pid) REFERENCES playerinfo(pid)
+    TABLE "strengthagility" CONSTRAINT "strengthagility_pid_fkey" FOREIGN KEY (pid) REFERENCES playerinfo(pid)
+
+csc343h-eddebsar=> \d DraftInfo
+             Table "nbaplayers.draftinfo"
+   Column   |  Type   | Collation | Nullable | Default 
+------------+---------+-----------+----------+---------
+ pid        | integer |           | not null | 
+ rank       | integer |           | not null | 
+ draftround | integer |           | not null | 
+Indexes:
+    "draftinfo_pkey" PRIMARY KEY, btree (pid)
+Foreign-key constraints:
+    "draftinfo_pid_fkey" FOREIGN KEY (pid) REFERENCES playerinfo(pid)
+
+csc343h-eddebsar=> \d Career
+                Table "nbaplayers.career"
+    Column     |  Type   | Collation | Nullable | Default 
+---------------+---------+-----------+----------+---------
+ pid           | integer |           | not null | 
+ yearsplayed   | integer |           | not null | 
+ gamesplayed   | integer |           | not null | 
+ minutesplayed | integer |           | not null | 
+Indexes:
+    "career_pkey" PRIMARY KEY, btree (pid)
+Foreign-key constraints:
+    "career_pid_fkey" FOREIGN KEY (pid) REFERENCES playerinfo(pid)
+
+csc343h-eddebsar=> \d BodyMeasurements
+                Table "nbaplayers.bodymeasurements"
+      Column       |       Type       | Collation | Nullable | Default 
+-------------------+------------------+-----------+----------+---------
+ pid               | integer          |           | not null | 
+ bodyfatpercentage | double precision |           | not null | 
+ handwidth         | double precision |           | not null | 
+ handlength        | double precision |           | not null | 
+ wingspan          | text             |           | not null | 
+ bodyweight        | double precision |           | not null | 
+ height            | text             |           | not null | 
+Indexes:
+    "bodymeasurements_pkey" PRIMARY KEY, btree (pid)
+Foreign-key constraints:
+    "bodymeasurements_pid_fkey" FOREIGN KEY (pid) REFERENCES playerinfo(pid)
+
+csc343h-eddebsar=> \d StrengthAgility
+                    Table "nbaplayers.strengthagility"
+        Column        |       Type       | Collation | Nullable | Default 
+----------------------+------------------+-----------+----------+---------
+ pid                  | integer          |           | not null | 
+ shuttlerun           | double precision |           | not null | 
+ threequartersprint   | double precision |           | not null | 
+ standingverticalleap | double precision |           | not null | 
+ maxverticalleap      | double precision |           | not null | 
+Indexes:
+    "strengthagility_pkey" PRIMARY KEY, btree (pid)
+Foreign-key constraints:
+    "strengthagility_pid_fkey" FOREIGN KEY (pid) REFERENCES playerinfo(pid)
+
+csc343h-eddebsar=> \d Shooting
+                            Table "nbaplayers.shooting"
+            Column             |       Type       | Collation | Nullable | Default 
+-------------------------------+------------------+-----------+----------+---------
+ pid                           | integer          |           | not null | 
+ fieldgoalpercentage           | double precision |           | not null | 
+ threepointfieldgoalpercentage | double precision |           | not null | 
+ freethrowpercentage           | double precision |           | not null | 
+Indexes:
+    "shooting_pkey" PRIMARY KEY, btree (pid)
+Foreign-key constraints:
+    "shooting_pid_fkey" FOREIGN KEY (pid) REFERENCES playerinfo(pid)
+
+csc343h-eddebsar=> \d AverageGameStats
+             Table "nbaplayers.averagegamestats"
+ Column  |       Type       | Collation | Nullable | Default 
+---------+------------------+-----------+----------+---------
+ pid     | integer          |           | not null | 
+ avgmins | double precision |           | not null | 
+ avgppg  | double precision |           | not null | 
+ avgapg  | double precision |           | not null | 
+ avgrpg  | double precision |           | not null | 
+Indexes:
+    "averagegamestats_pkey" PRIMARY KEY, btree (pid)
+Foreign-key constraints:
+    "averagegamestats_pid_fkey" FOREIGN KEY (pid) REFERENCES playerinfo(pid)
+
+--- (c) Run SELECT count(*) on each table ---
+csc343h-eddebsar=> select count(*) from PlayerInfo;
+ count 
+-------
+    60
+(1 row)
+
+csc343h-eddebsar=> select count(*) from DraftInfo;
+ count 
+-------
+    60
+(1 row)
+
+csc343h-eddebsar=> select count(*) from Career;
+ count 
+-------
+    60
+(1 row)
+
+csc343h-eddebsar=> select count(*) from BodyMeasurements;
+ count 
+-------
+    24
+(1 row)
+
+csc343h-eddebsar=> select count(*) from StrengthAgility;
+ count 
+-------
+    17
+(1 row)
+
+csc343h-eddebsar=> select count(*) from Shooting;
+ count 
+-------
+    60
+(1 row)
+
+csc343h-eddebsar=> select count(*) from AverageGameStats;
+ count 
+-------
+    60
+(1 row)
+
+--- (d) Show some rows from each table ---
+csc343h-eddebsar=> SElECT * FROM PlayerInfo WHERE college = 'Arizona' OR college = 'Washington';
+ pid | team |   playername    |  college   
+-----+------+-----------------+------------
+  16 | POR  | Isaiah Stewart  | Washington
+  18 | DAL  | Josh Green      | Arizona
+  22 | DEN  | Zeke Nnaji      | Arizona
+  28 | LAL  | Jaden McDaniels | Washington
+  48 | GSW  | Nico Mannion    | Arizona
+(5 rows)
+
+csc343h-eddebsar=> SELECT * FROM DraftInfo WHERE PID <= 10;
+ pid | rank |    playername    
+-----+------+------------------
+   1 |    1 | Anthony Edwards
+   2 |    2 | James Wiseman
+   3 |    3 | LaMelo Ball
+   4 |    4 | Patrick Williams
+   5 |    5 | Isaac Okoro
+   6 |    6 | Onyeka Okongwu
+   7 |    7 | Killian Hayes
+   8 |    8 | Obi Toppin
+   9 |    9 | Deni Avdija
+  10 |   10 | Jalen Smith
+(10 rows)
+
+csc343h-eddebsar=> SELECT * FROM Career WHERE gamesPlayed < 20;
+ pid | yearsplayed | gamesplayed | minutesplayed 
+-----+-------------+-------------+---------------
+  23 |           1 |           5 |            16
+  27 |           2 |          19 |            65
+  31 |           1 |          11 |            56
+  36 |           1 |          18 |            71
+  37 |           1 |           3 |             9
+  40 |           1 |          13 |            45
+  43 |           2 |          16 |           120
+  44 |           0 |           0 |             0
+  47 |           0 |           0 |             0
+  51 |           0 |           0 |             0
+  55 |           2 |           9 |           115
+  56 |           1 |           7 |            27
+  59 |           1 |          13 |           172
+(13 rows)
+
+csc343h-eddebsar=> SELECT * FROM BodyMeasurements WHERE bodyFatPercentage < 5;
+ pid | bodyfatpercentage | handwidth | handlength | wingspan | bodyweight | height 
+-----+-------------------+-----------+------------+----------+------------+--------
+  46 |               4.2 |      8.75 |         10 | 6'6.25   |      198.6 | 6'7.25
+  59 |               4.4 |      8.25 |        9.5 | 6'4.25   |      193.4 | 6'7.00
+  49 |               4.7 |      8.25 |       8.25 | 6'4.50   |      170.4 | 6'7.50
+  34 |               2.8 |       8.5 |         10 | 6'5.00   |      187.4 | 6'8.75
+  43 |               3.4 |      8.75 |       9.75 | 6'3.75   |      193.4 | 6'6.00
+  10 |               3.7 |      9.25 |       9.25 | 6'10.25  |      224.6 | 7'2.25
+(6 rows)
+
+csc343h-eddebsar=> SELECT * FROM StrengthAgility WHERE maxVerticalLeap < 35;
+ pid | shuttlerun | threequartersprint | standingverticalleap | maxverticalleap 
+-----+------------+--------------------+----------------------+-----------------
+  57 |       2.57 |               3.25 |                   30 |            33.5
+  42 |       2.92 |               3.25 |                   30 |              34
+  31 |       2.59 |               3.28 |                   30 |              34
+  35 |       3.01 |               3.49 |                   26 |            32.5
+  53 |       2.74 |               3.61 |                   24 |              28
+(5 rows)
+
+csc343h-eddebsar=> SELECT * FROM Shooting WHERE freeThrowPercentage < 10;
+ pid | fieldgoalpercentage | threepointfieldgoalpercentage | freethrowpercentage 
+-----+---------------------+-------------------------------+---------------------
+  44 |                   0 |                             0 |                   0
+  47 |                   0 |                             0 |                   0
+  51 |                   0 |                             0 |                   0
+  56 |                66.7 |                            50 |                   0
+(4 rows)
+
+csc343h-eddebsar=> SELECT * FROM AverageGameStats WHERE AvgPPG < 2;
+ pid | avgmins | avgppg | avgapg | avgrpg 
+-----+---------+--------+--------+--------
+  23 |     3.2 |      1 |      0 |    0.8
+  27 |     3.4 |    0.9 |      0 |    0.9
+  31 |     5.1 |      1 |    0.5 |    0.5
+  33 |     5.4 |    1.8 |    0.3 |    1.6
+  36 |     3.9 |      1 |    0.2 |    1.1
+  37 |       3 |    0.7 |      0 |      1
+  39 |     3.4 |    1.5 |    0.3 |    0.5
+  40 |     3.5 |    1.5 |    0.2 |    1.2
+  44 |       0 |      0 |      0 |      0
+  47 |       0 |      0 |      0 |      0
+  51 |       0 |      0 |      0 |      0
+  53 |     4.5 |    1.9 |    0.5 |    0.4
+  54 |     3.9 |    1.5 |      0 |    0.8
+(13 rows)
