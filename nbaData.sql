@@ -1,4 +1,4 @@
-\copy PlayerInfo  FROM 'playerInfoData2020.csv' DELIMITER ',' CSV
+\copy PlayerInfo  FROM 'playerInfoData2017.csv' DELIMITER ',' CSV
 \copy DraftInfo  FROM 'draftResults2020.csv' DELIMITER ',' CSV
 \copy Career  FROM 'careerData2020.csv' DELIMITER ',' CSV
 \copy BodyMeasurements  FROM 'combineAnthro2020.csv' DELIMITER ',' CSV
