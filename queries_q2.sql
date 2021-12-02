@@ -2,6 +2,12 @@
 
 DROP TABLE IF EXISTS q2 CASCADE;
 
+-- College's players participating in the draft
+-- college is the college's name
+-- total_players is the total numbers of draft players a college has produced over a specified number of years (in our scenario, 2018-2020)
+-- rank_avg is the draft players average rank from the specified certain college
+-- highest_rank is the highest rank draft player from the specified college
+-- num_years is the total number of years a college had players participating in the draft over a specified number of years (in our scenario, max years is 3)
 CREATE TABLE q2 (
     college TEXT NOT NULL,
     total_players INT,
@@ -19,6 +25,22 @@ HAVING count(playerName) > 1
 ORDER BY count(DISTINCT year) DESC, count(playerName) DESC, min(rank);
 
 SELECT * FROM q2;
+
+DROP VIEW IF EXISTS HighestPlayerTotal CASCADE;
+
+CREATE VIEW HighestPlayerTotal AS
+SELECT max(total_players)
+FROM q2;
+
+DROP VIEW IF EXISTS TopColleges CASCADE;
+
+CREATE VIEW TopColleges AS
+SELECT college, total_players, rank_avg, highest_rank, num_years
+FROM q2, HighestPlayerTotal
+WHERE total_players = max;
+
+SELECT * FROM TopColleges;
+
 
 /* EXPLORITORY WORK */
 
