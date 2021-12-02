@@ -52,11 +52,11 @@ CREATE TABLE Career (
 CREATE TABLE BodyMeasurements(
     PID INT, 
     bodyFatPercentage FLOAT NOT NULL, 
-    handWidth FLOAT NOT NULL, 
     handLength FLOAT NOT NULL, 
-    wingspan TEXT NOT NULL, 
-    bodyWeight FLOAT NOT NULL, 
+    handWidth FLOAT NOT NULL, 
     height TEXT NOT NULL,
+    bodyWeight FLOAT NOT NULL, 
+    wingspan TEXT NOT NULL, 
     PRIMARY KEY (PID),
     FOREIGN KEY (PID) REFERENCES PlayerInfo(PID)
 );
