@@ -109,11 +109,11 @@ CREATE TABLE AverageGameStats (
     FOREIGN KEY (PID) REFERENCES PlayerInfo(PID)
 );
 
-CREATE TABLE PlayerInfoYearly {
+CREATE TABLE PlayerInfoYearly (
     year INT,
     PID INT,
     team TEXT NOT NULL,
     playerName TEXT NOT NULL,
     college TEXT,
     PRIMARY KEY (year, PID)
-}
+);
