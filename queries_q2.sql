@@ -32,6 +32,7 @@ CREATE VIEW HighestPlayerTotal AS
 SELECT max(total_players)
 FROM q2;
 
+-- This view shows us the college(s) with the top number or draft players
 DROP VIEW IF EXISTS TopColleges CASCADE;
 
 CREATE VIEW TopColleges AS
