@@ -1,0 +1,87 @@
+-- Importing a file such as this will let you quickly create a demo to hand
+-- in. You may edit this to customize it.  For instance, you may have your
+-- data in a csv file and need a different command to load it in, you
+-- may differently named files, or you may have your queries split into more
+-- files than expected here.
+\echo -------------------- Loading schema and data: --------------------
+\echo
+\i nbaDDL.sql
+\i nbaData2020.sql
+\echo
+\echo  -------------------- Investigative Question 1: ------------------
+\echo
+--\i iq1.txt
+\echo
+\echo  -------------------- Investigative Question 2: ------------------
+\echo
+--\i iq2.txt
+\echo
+\echo  -------------------- Investigative Question 3: ------------------
+\echo
+\i queries_q3.sql
+\echo ---------------------------- Query #1 ----------------------------
+SELECT shooting.pid,playerName, fieldgoalpercentage
+FROM Shooting, Career, DraftInfo
+WHERE Shooting.pid = Career.pid  and Shooting.pid = DraftInfo.pid and Career.pid = DraftInfo.pid and  Career.gamesPlayed > (Career.yearsPlayed * 21)
+ORDER by fieldgoalpercentage DESC;
+\echo ---------------------------- Query #2 ----------------------------
+SELECT shooting.pid,playerName, threepointfieldgoalpercentage
+FROM Shooting, Career, DraftInfo
+WHERE Shooting.pid = Career.pid  and Shooting.pid = DraftInfo.pid and Career.pid = DraftInfo.pid and  Career.gamesPlayed > (Career.yearsPlayed * 21)
+ORDER by threepointfieldgoalpercentage DESC;
+\echo ---------------------------- Query #3 ----------------------------
+SELECT shooting.pid,playerName, freethrowpercentage
+FROM Shooting, Career, DraftInfo
+WHERE Shooting.pid = Career.pid  and Shooting.pid = DraftInfo.pid and Career.pid = DraftInfo.pid and  Career.gamesPlayed > (Career.yearsPlayed * 21)
+ORDER by freethrowpercentage DESC;
+\echo ---------------------------- Query #4 ----------------------------
+SELECT avg(pid) as AvgDraftRank
+FROM (SELECT shooting.pid,playerName, freethrowpercentage
+FROM Shooting, Career, DraftInfo
+WHERE Shooting.pid = Career.pid  and Shooting.pid = DraftInfo.pid and Career.pid = DraftInfo.pid and  Career.gamesPlayed > (Career.yearsPlayed * 21)
+ORDER by fieldgoalpercentage DESC LIMIT 10) as foo;
+\echo ---------------------------- Query #5 ----------------------------
+SELECT avg(pid) as AvgDraftRank
+FROM (SELECT shooting.pid,playerName, freethrowpercentage
+FROM Shooting, Career, DraftInfo
+WHERE Shooting.pid = Career.pid  and Shooting.pid = DraftInfo.pid and Career.pid = DraftInfo.pid and  Career.gamesPlayed > (Career.yearsPlayed * 21)
+ORDER by threepointfieldgoalpercentage DESC LIMIT 10) as foo;
+\echo ---------------------------- Query #6 ----------------------------
+SELECT avg(pid) as AvgDraftRank
+FROM (SELECT shooting.pid,playerName, freethrowpercentage
+FROM Shooting, Career, DraftInfo
+WHERE Shooting.pid = Career.pid  and Shooting.pid = DraftInfo.pid and Career.pid = DraftInfo.pid and  Career.gamesPlayed > (Career.yearsPlayed * 21)
+ORDER by freethrowpercentage DESC LIMIT 10) as foo;
+\echo ---------------------------- Query #7 ----------------------------
+SELECT averagegamestats.pid, playerName, avgppg
+FROM averagegamestats, Career, DraftInfo
+WHERE averagegamestats.pid = Career.pid and Career.pid = DraftInfo.pid and averagegamestats.pid = DraftInfo.pid and  Career.gamesPlayed > (Career.yearsPlayed * 21)
+ORDER by avgppg DESC;
+\echo ---------------------------- Query #8 ----------------------------
+SELECT averagegamestats.pid, playerName, avgapg
+FROM averagegamestats, Career, DraftInfo
+WHERE averagegamestats.pid = Career.pid and Career.pid = DraftInfo.pid and averagegamestats.pid = DraftInfo.pid and  Career.gamesPlayed > (Career.yearsPlayed * 21)
+ORDER by avgapg DESC;
+\echo ---------------------------- Query #9 ----------------------------
+SELECT averagegamestats.pid, playerName, avgrpg
+FROM averagegamestats, Career, DraftInfo
+WHERE averagegamestats.pid = Career.pid and Career.pid = DraftInfo.pid and averagegamestats.pid = DraftInfo.pid and  Career.gamesPlayed > (Career.yearsPlayed * 21)
+ORDER by avgrpg DESC;
+\echo ---------------------------- Query #10 ----------------------------
+SELECT avg(pid) as AvgDraftRank
+FROM (SELECT averagegamestats.pid, avgppg
+FROM averagegamestats, Career
+WHERE averagegamestats.pid = Career.pid  and  Career.gamesPlayed > (Career.yearsPlayed * 21)
+ORDER by avgppg DESC LIMIT 10) as foo;
+\echo ---------------------------- Query #11 ----------------------------
+SELECT avg(pid) as AvgDraftRank
+FROM (SELECT averagegamestats.pid, avgppg
+FROM averagegamestats, Career
+WHERE averagegamestats.pid = Career.pid  and  Career.gamesPlayed > (Career.yearsPlayed * 21)
+ORDER by avgapg DESC LIMIT 10) as foo;
+\echo ---------------------------- Query #12 ----------------------------
+SELECT avg(pid) as AvgDraftRank
+FROM (SELECT averagegamestats.pid, avgppg
+FROM averagegamestats, Career
+WHERE averagegamestats.pid = Career.pid  and  Career.gamesPlayed > (Career.yearsPlayed * 21)
+ORDER by avgrpg DESC LIMIT 10) as foo;
