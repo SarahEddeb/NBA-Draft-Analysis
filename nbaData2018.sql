@@ -5,3 +5,4 @@
 \copy StrengthAgility  FROM 'combineStrength2018.csv' DELIMITER ',' CSV
 \copy Shooting  FROM 'shootingStats2018.csv' DELIMITER ',' CSV
 \copy AverageGameStats  FROM 'gameStats2018.csv' DELIMITER ',' CSV
+\copy PlayerInfoYearly  FROM 'playerInfoData2018-2020.csv' DELIMITER ',' CSV

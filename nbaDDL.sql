@@ -111,9 +111,9 @@ CREATE TABLE AverageGameStats (
 
 CREATE TABLE PlayerInfoYearly (
     year INT,
-    PID INT,
+    rank INT,
     team TEXT NOT NULL,
     playerName TEXT NOT NULL,
     college TEXT,
-    PRIMARY KEY (year, PID)
+    PRIMARY KEY (year, rank)
 );
