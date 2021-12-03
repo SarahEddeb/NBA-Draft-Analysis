@@ -5,7 +5,7 @@
 -- files than expected here.
 \echo -------------------- Loading schema and data: --------------------
 \echo
-\i nbaDDL.sql
+\i schema.ddl
 \i nbaData2020.sql
 \echo  -- We can load other years by doing the command \i nbaData2018.sql or \i nbaData2019.sql
 \echo  -- Make sure to load only one of these sql files

@@ -4,13 +4,36 @@ psql (13.4)
 Type "help" for help.
 
 --- a) Load schema and data ---
-csc343h-eddebsar=> \i nbaDDL.sql psql:nbaDDL.sql:1: NOTICE:  drop cascades to 6 other objects
+csc343h-eddebsar=> \i schema.ddl
+psql:schema.ddl:1: NOTICE:  drop cascades to 28 other objects
 DETAIL:  drop cascades to table nbaplayers.playerinfo
 drop cascades to table nbaplayers.draftinfo
 drop cascades to table nbaplayers.career
 drop cascades to table nbaplayers.bodymeasurements
 drop cascades to table nbaplayers.strengthagility
 drop cascades to table nbaplayers.shooting
+drop cascades to table nbaplayers.averagegamestats
+drop cascades to table nbaplayers.playerinfoyearly
+drop cascades to table nbaplayers.q1
+drop cascades to view nbaplayers.toptenmeasurements
+drop cascades to view nbaplayers.heights
+drop cascades to view nbaplayers.allinfo
+drop cascades to view nbaplayers.idealplayer
+drop cascades to table nbaplayers.q2
+drop cascades to view nbaplayers.highestplayertotal
+drop cascades to view nbaplayers.topcolleges
+drop cascades to view nbaplayers.topfieldgoalpercentage
+drop cascades to view nbaplayers.topthreepointpercentage
+drop cascades to view nbaplayers.topfreethrowpercentage
+drop cascades to view nbaplayers.avgfieldgoalpercentage
+drop cascades to view nbaplayers.avgthreepointfieldgoalpercentage
+drop cascades to view nbaplayers.avgfreethrowpercentage
+drop cascades to view nbaplayers.topppg
+drop cascades to view nbaplayers.topapg
+drop cascades to view nbaplayers.toprpg
+drop cascades to view nbaplayers.avgrankppg
+drop cascades to view nbaplayers.avgrankapg
+drop cascades to view nbaplayers.avgrankrpg
 DROP SCHEMA
 CREATE SCHEMA
 SET
@@ -21,13 +44,16 @@ CREATE TABLE
 CREATE TABLE
 CREATE TABLE
 CREATE TABLE
-csc343h-eddebsar=> \i nbaData.sql
+CREATE TABLE
+csc343h-eddebsar=> \i nbaData2020.sql 
 COPY 60
 COPY 60
 COPY 60
 COPY 24
+COPY 17
 COPY 60
 COPY 60
+COPY 180
 --- b) Run \d on each table ---
 csc343h-eddebsar=> \d PlayerInfo
              Table "nbaplayers.playerinfo"
