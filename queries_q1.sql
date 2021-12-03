@@ -25,6 +25,10 @@ CREATE TABLE q1 (
 
 DROP VIEW IF EXISTS TopTenMeasurements CASCADE;
 DROP VIEW IF EXISTS Heights CASCADE;
+DROP VIEW IF EXISTS AllInfo CASCADE;
+DROP VIEW IF EXISTS IdealPlayer CASCADE;
+
+
 
 CREATE VIEW TopTenMeasurements AS
 SELECT PlayerInfo.pid, bodyfatpercentage, handlength, handwidth, height, bodyweight, wingspan
@@ -33,6 +37,7 @@ JOIN BodyMeasurements ON PlayerInfo.PID = BodyMeasurements.PID
 ORDER BY PlayerInfo.PID
 LIMIT 10;
 
+-- SELECT * FROM TopTenMeasurements;
 
 CREATE VIEW Heights AS
 SELECT pid, CAST(left(height, 1) AS INTEGER) as feet_h, 
@@ -53,6 +58,10 @@ SELECT pid, CAST(left(height, 1) AS INTEGER) as feet_h,
     AS DOUBLE PRECISION) as inches_wg
 FROM TopTenMeasurements;
 
+CREATE VIEW AllInfo AS
+SELECT Heights.PID, bodyfatpercentage, handlength, handwidth, bodyweight, feet_h, inches_h, feet_ws, inches_wg, (feet_ws*12)+inches_wg as wingspan, (feet_h*12)+inches_h as height
+FROM Heights
+JOIN TopTenMeasurements ON Heights.PID = TopTenMeasurements.PID;
 
 insert into q1
 SELECT avg(bodyfatpercentage) as ideal_bodyfat, avg(handlength) as ideal_handlength, avg(handwidth) as ideal_handwidth, avg(bodyweight) as ideal_bodyweight, avg((feet_h*12)+inches_h) as ideal_height_inches, avg((feet_ws*12)+inches_wg) as ideal_wingspan_inches
@@ -61,8 +70,46 @@ JOIN Heights ON TopTenMeasurements.PID = Heights.PID;
 
 SELECT * FROM q1;
 
+/* Finding the player with the closest body measurements to the ideal physique */
+CREATE VIEW IdealPlayer AS
+SELECT AllInfo.pid, DraftInfo.rank, playerName, bodyfatpercentage, ideal_bodyfat, bodyweight, ideal_bodyweight, height, ideal_height_inches
+FROM AllInfo, q1, DraftInfo
+WHERE AllInfo.PID = DraftInfo.PID
+and (ideal_bodyfat - 3) <= bodyfatpercentage and (ideal_bodyfat + 3) >= bodyfatpercentage
+and (ideal_bodyweight - 15) <= bodyweight and (ideal_bodyweight + 15) >= bodyweight
+and (ideal_height_inches - 6) <= height and (ideal_height_inches + 6) >= height
+and (ideal_handlength - 2) <= handlength and (ideal_handlength + 2) >= handlength
+and (ideal_handwidth - 2) <= handwidth and (ideal_handwidth + 2) >= handwidth
+and (ideal_wingspan_inches - 9) <= wingspan and (ideal_wingspan_inches + 9) >= wingspan;
+
+-- SELECT * FROM IdealPlayer;
 
 /* EXPLORITORY WORK */
+
+/* Players closest to the ideal physique */
+/*
+------------ Close Ideal Player(s) 2020 ------------
+ pid | rank |    playername    | bodyfatpercentage | ideal_bodyfat | bodyweight |  ideal_bodyweight  | height | ideal_height_inches 
+-----+------+------------------+-------------------+---------------+------------+--------------------+--------+---------------------
+  20 |   20 | Precious Achiuwa |               6.7 |         6.731 |        234 | 223.16000000000003 |  80.75 |               79.45
+(1 row)
+
+------------ Player 2019 ------------
+ pid | rank |        playername        | bodyfatpercentage |   ideal_bodyfat    | bodyweight |  ideal_bodyweight  | height | ideal_height_inches 
+-----+------+--------------------------+-------------------+--------------------+------------+--------------------+--------+---------------------
+   6 |    6 | Jarrett Culver           |                 5 | 5.6899999999999995 |      194.2 | 207.82000000000002 |  78.75 |   79.54166666666667
+  11 |   11 | Cameron Johnson          |               5.8 | 5.6899999999999995 |      205.2 | 207.82000000000002 |   80.5 |   79.54166666666667
+  17 |   17 | Nickeil Alexander-Walker |               5.9 | 5.6899999999999995 |      203.8 | 207.82000000000002 |   77.5 |   79.54166666666667
+  21 |   21 | Brandon Clarke           |               4.9 | 5.6899999999999995 |      207.2 | 207.82000000000002 |  80.25 |   79.54166666666667
+(4 rows)
+
+------------ Player 2018 ------------
+ pid | rank |   playername   | bodyfatpercentage | ideal_bodyfat | bodyweight |  ideal_bodyweight  | height | ideal_height_inches 
+-----+------+----------------+-------------------+---------------+------------+--------------------+--------+---------------------
+  12 |   12 | Miles Bridges  |               5.9 |         5.935 |      220.4 | 206.86000000000004 |  78.75 |   78.45833333333333
+  15 |   15 | Troy Brown Jr. |              7.05 |         5.935 |        208 | 206.86000000000004 |  78.75 |   78.45833333333333
+(2 rows)
+*/
 
 /* This is using the top 10 people in the combine anthro */
 /* ------------ IDEAL PHYSIQUE 2018 ------------*/
@@ -115,4 +162,3 @@ SELECT * FROM q1;
  6.720416666666669 |            8.625 |         9.40625 |          214.025 |   78.42708333333333 |     82.92708333333333
 (1 row)
 */
-
