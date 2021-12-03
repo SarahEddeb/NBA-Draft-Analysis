@@ -109,6 +109,12 @@ CREATE TABLE AverageGameStats (
     FOREIGN KEY (PID) REFERENCES PlayerInfo(PID)
 );
 
+-- A player in the draft
+-- year is the year the player was drafted in
+-- rank is the players rank in the draft
+-- team is the team the player was drafted to
+-- playername is the players first and last name
+-- college is the college the player attended before entering the draft
 CREATE TABLE PlayerInfoYearly (
     year INT,
     rank INT,
