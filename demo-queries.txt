@@ -7,14 +7,15 @@
 \echo
 \i nbaDDL.sql
 \i nbaData2020.sql
-\echo
+\echo  -- We can load other years by doing the command \i nbaData2018.sql or \i nbaData2019.sql
+\echo  -- Make sure to load only one of these sql files
 \echo  -------------------- Investigative Question 1: ------------------
 \echo
---\i iq1.txt
+\i queries_q1.sql
 \echo
 \echo  -------------------- Investigative Question 2: ------------------
 \echo
---\i iq2.txt
+\i queries_q2.sql
 \echo
 \echo  -------------------- Investigative Question 3: ------------------
 \echo
