@@ -1,1 +1,2 @@
-# CSC343-Team-Project-NBA
+# NBA-Draft-Analysis
+A comprehensive SQL-based system for analyzing player physique data and comparing top draft prospects.
